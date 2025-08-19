@@ -41,7 +41,7 @@
     <meta property="og:description" content="Профессиональный подбор и доставка автомобилей из Европы и Кореи в Беларусь.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://автомир-импорт.бел">
-    <meta property="og:image" content="https://автомир-импорт.бел/images/hero-bg.jpg">
+    <meta property="og:image" content="https://автомир-импорт.бел/images/hero-bg.webp">
 
     <!-- Подключение стилей -->
     <link rel="stylesheet" href="styles.css">
@@ -66,7 +66,7 @@
         "addressCountry": "BY"
       },
       "openingHours": "Mo,Tu,We,Th,Fr 09:00-19:00 Sa 10:00-16:00",
-      "image": "https://автомир-импорт.бел/images/hero-bg.jpg",
+      "image": "https://автомир-импорт.бел/images/hero-bg.webp",
       "priceRange": "$$"
     }
     </script>
@@ -291,7 +291,7 @@
                     </div>
                 </div>
                 <div class="rounded-xl overflow-hidden shadow-xl">
-                    <img src="images/about-car.jpg" alt="Автомобиль из Европы" class="w-full h-96 object-cover">
+                    <img src="images/about-car.webp" alt="Автомобиль из Европы" class="w-full h-96 object-cover">
                 </div>
             </div>
         </div>
@@ -402,7 +402,7 @@
             </div>
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <img src="images/bmw-x5.jpg" alt="BMW X5" class="w-full h-48 object-cover">
+                    <img src="images/bmw-x5.webp" alt="BMW X5" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">BMW X5</h3>
                         <p class="text-gray-600 mb-2">Год: 2020</p>
@@ -412,7 +412,7 @@
                     </div>
                 </div>
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <img src="images/hyundai-tucson.jpg" alt="Hyundai Tucson" class="w-full h-48 object-cover">
+                    <img src="images/hyundai-tucson.webp" alt="Hyundai Tucson" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Hyundai Tucson</h3>
                         <p class="text-gray-600 mb-2">Год: 2021</p>
@@ -422,7 +422,7 @@
                     </div>
                 </div>
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <img src="images/mercedes-e-class.jpg" alt="Mercedes E-Class" class="w-full h-48 object-cover">
+                    <img src="images/mercedes-e-class.webp" alt="Mercedes E-Class" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Mercedes E-Class</h3>
                         <p class="text-gray-600 mb-2">Год: 2019</p>
@@ -956,7 +956,7 @@
                 document.getElementById('totalResult').textContent = formatPrice(totalPriceDisplay, currencySymbol);
 
                 resultBox.classList.remove('hidden');
-                resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                resultBox.scroll-into-view({ behavior: 'smooth', block: 'center' });
             });
 
             function formatPrice(price, symbol) {
@@ -972,7 +972,8 @@
                 const message = document.getElementById('message').value;
 
                 if (!name || !phone) {
-                    alert('Пожалуйста, заполните обязательные поля.');
+                    // Use a more subtle message box instead of alert
+                    showMessageBox('Пожалуйста, заполните обязательные поля.');
                     return;
                 }
 
@@ -990,14 +991,33 @@
                     });
                     const result = await response.json();
                     if (result.success) {
-                        alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+                        showMessageBox('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
                         document.getElementById('contactForm').reset();
                     } else {
-                        alert('Произошла ошибка при отправке заявки. Попробуйте снова.');
+                        showMessageBox('Произошла ошибка при отправке заявки. Попробуйте снова.');
                     }
                 } catch (error) {
-                    alert('Произошла ошибка: ' + error.message);
+                    showMessageBox('Произошла ошибка: ' + error.message);
                 }
+            }
+
+            // Custom message box function
+            function showMessageBox(text) {
+                const messageBox = document.createElement('div');
+                messageBox.classList.add('fixed', 'bottom-16', 'left-1/2', '-translate-x-1/2', 'bg-blue-600', 'text-white', 'py-3', 'px-6', 'rounded-lg', 'shadow-lg', 'z-50', 'transition-all', 'duration-300', 'transform', 'scale-0', 'opacity-0');
+                messageBox.textContent = text;
+                document.body.appendChild(messageBox);
+                
+                setTimeout(() => {
+                    messageBox.classList.remove('scale-0', 'opacity-0');
+                    messageBox.classList.add('scale-100', 'opacity-100');
+                }, 10);
+
+                setTimeout(() => {
+                    messageBox.classList.remove('scale-100', 'opacity-100');
+                    messageBox.classList.add('scale-0', 'opacity-0');
+                    setTimeout(() => messageBox.remove(), 300);
+                }, 3000);
             }
         });
     </script>
