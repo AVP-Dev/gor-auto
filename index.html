@@ -302,7 +302,8 @@
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Наши услуги</h2>
-                <p class="text-lg text-gray-300 max-w-3xl mx-auto">Полный комплекс услуг по подбору и достав Anybody can drive a car, but it takes a professional to import one seamlessly.ке автомобилей из-за рубежа</p>
+                <!-- Исправлен текст: убрана лишняя английская фраза -->
+                <p class="text-lg text-gray-300 max-w-3xl mx-auto">Полный комплекс услуг по подбору и доставке автомобилей из-за рубежа</p>
             </div>
             <div class="grid md:grid-cols-4 gap-8">
                 <div class="bg-gray-800 rounded-xl p-6 transition duration-300 card-hover">
@@ -833,11 +834,11 @@
 
                 // Валидация
                 if (carPrice <= 0) {
-                    alert('Пожалуйста, укажите корректную стоимость автомобиля (больше 0).');
+                    showMessageBox('Пожалуйста, укажите корректную стоимость автомобиля (больше 0).');
                     return;
                 }
                 if (engineType === 'internal_combustion' && engineVolume <= 0) {
-                    alert('Пожалуйста, укажите корректный объем двигателя (больше 0).');
+                    showMessageBox('Пожалуйста, укажите корректный объем двигателя (больше 0).');
                     return;
                 }
 
@@ -956,7 +957,7 @@
                 document.getElementById('totalResult').textContent = formatPrice(totalPriceDisplay, currencySymbol);
 
                 resultBox.classList.remove('hidden');
-                resultBox.scroll-into-view({ behavior: 'smooth', block: 'center' });
+                resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
 
             function formatPrice(price, symbol) {
@@ -972,7 +973,7 @@
                 const message = document.getElementById('message').value;
 
                 if (!name || !phone) {
-                    // Use a more subtle message box instead of alert
+                    // Используем собственный всплывающий блок вместо alert
                     showMessageBox('Пожалуйста, заполните обязательные поля.');
                     return;
                 }
@@ -1000,8 +1001,8 @@
                     showMessageBox('Произошла ошибка: ' + error.message);
                 }
             }
-
-            // Custom message box function
+            
+            // Пользовательская функция для показа сообщений
             function showMessageBox(text) {
                 const messageBox = document.createElement('div');
                 messageBox.classList.add('fixed', 'bottom-16', 'left-1/2', '-translate-x-1/2', 'bg-blue-600', 'text-white', 'py-3', 'px-6', 'rounded-lg', 'shadow-lg', 'z-50', 'transition-all', 'duration-300', 'transform', 'scale-0', 'opacity-0');
