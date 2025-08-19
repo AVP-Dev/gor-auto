@@ -1,0 +1,122 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.hero-section {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    min-height: 700px;
+}
+
+.contact-section {
+    background-image: linear-gradient(rgba(24, 35, 53, 0.97), rgba(24, 35, 53, 0.97)), url('images/contact-bg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background-color: #2563eb;
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    transform: scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #4b5563;
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    transform: scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+    background-color: #374151;
+    transform: scale(1.05);
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    color: #1f2937;
+    border: 1px solid #d1d5db;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.form-input::placeholder {
+    color: #6b7280;
+    opacity: 1;
+}
+
+.form-input[type="select"],
+.form-input select {
+    color: #1f2937;
+    background-color: #ffffff;
+}
+
+.form-input select option {
+    color: #1f2937;
+    background-color: #ffffff;
+}
+
+.form-radio,
+.form-checkbox {
+    accent-color: #2563eb;
+    margin-right: 0.5rem;
+}
+
+.calculator-wrapper label span {
+    color: #1f2937;
+}
+
+.calculator-wrapper {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+}
+
+#resultBox {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    border-left: 4px solid #2563eb;
+}
+
+#catalog img,
+#reviews img {
+    transition: transform 0.3s ease;
+}
+
+#catalog img:hover {
+    transform: scale(1.05);
+}

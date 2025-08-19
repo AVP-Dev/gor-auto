@@ -1,0 +1,54 @@
+<?php
+header('Content-Type: application/json');
+include 'config.php';
+
+// Получение данных из формы
+$name = isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '';
+$phone = isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '';
+$email = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '';
+$carDetails = isset($_POST['carDetails']) ? htmlspecialchars($_POST['carDetails']) : '';
+$message = isset($_POST['message']) ? htmlspecialchars($_POST['message']) : '';
+
+// Формирование сообщения
+$telegramMessage = "Новая заявка:\n";
+$telegramMessage .= "Имя: $name\n";
+$telegramMessage .= "Телефон: $phone\n";
+if ($email) $telegramMessage .= "Email: $email\n";
+if ($carDetails) $telegramMessage .= "Интересующий автомобиль: $carDetails\n";
+if ($message) $telegramMessage .= "Сообщение: $message\n";
+
+// Подготовка кнопок
+$inlineKeyboard = [
+    'inline_keyboard' => [
+        [
+            ['text' => 'Принять', 'callback_data' => "accept_$name"],
+            ['text' => 'Отклонить', 'callback_data' => "reject_$name"],
+            ['text' => 'Позвонить', 'url' => "tel:$phone"]
+        ]
+    ]
+];
+
+// Отправка сообщения в Telegram
+$telegramUrl = "https://api.telegram.org/bot$telegramBotToken/sendMessage";
+$data = [
+    'chat_id' => $telegramChatId,
+    'message_thread_id' => $telegramMessageThreadId,
+    'text' => $telegramMessage,
+    'reply_markup' => json_encode($inlineKeyboard),
+    'parse_mode' => 'HTML'
+];
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $telegramUrl);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+
+if ($response) {
+    echo json_encode(['success' => true]);
+} else {
+    echo json_encode(['success' => false, 'error' => 'Ошибка отправки в Telegram']);
+}
+?>

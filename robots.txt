@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /config.php
+Disallow: /send_telegram.php
+Allow: /
+
+Sitemap: https://автомир-импорт.бел/sitemap.xml

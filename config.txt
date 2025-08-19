@@ -1,0 +1,10 @@
+<?php
+// Telegram Bot Token
+$telegramBotToken = 'YOUR_BOT_TOKEN';
+
+// Telegram Chat ID
+$telegramChatId = 'YOUR_CHAT_ID';
+
+// Telegram Message Thread ID
+$telegramMessageThreadId = 'YOUR_MESSAGE_THREAD_ID';
+?>

@@ -1,0 +1,1005 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row =>
+                    row.some(cell => cell !== '' && cell !== null && cell !== undefined)
+                );
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АвтоМир Импорт - Подбор и доставка автомобилей из Европы и Кореи в Беларусь</title>
+    <meta name="description" content="Профессиональный подбор и доставка автомобилей из Европы и Кореи в Беларусь. Полное таможенное оформление, гарантия качества, низкие цены.">
+    <meta name="keywords" content="купить авто из Европы, автомобили из Кореи, доставка авто в Беларусь, растаможка авто, импорт автомобилей, авто из Германии, Hyundai, Kia, Mercedes, BMW, Audi">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="АвтоМир Импорт">
+    <meta property="og:title" content="АвтоМир Импорт - Подбор и доставка автомобилей">
+    <meta property="og:description" content="Профессиональный подбор и доставка автомобилей из Европы и Кореи в Беларусь.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://автомир-импорт.бел">
+    <meta property="og:image" content="https://автомир-импорт.бел/images/hero-bg.jpg">
+
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Микроразметка Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutomobileBusiness",
+      "name": "АвтоМир Импорт",
+      "description": "Профессиональный подбор и доставка автомобилей из Европы и Кореи в Беларусь",
+      "url": "https://автомир-импорт.бел",
+      "telephone": "+375 29 123-45-67",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ул. Немига, 5",
+        "addressLocality": "Минск",
+        "postalCode": "220004",
+        "addressCountry": "BY"
+      },
+      "openingHours": "Mo,Tu,We,Th,Fr 09:00-19:00 Sa 10:00-16:00",
+      "image": "https://автомир-импорт.бел/images/hero-bg.jpg",
+      "priceRange": "$$"
+    }
+    </script>
+
+    <!-- Яндекс.Метрика -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(XXXXXXXX, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true,
+            trackHash: true,
+            ecommerce: "dataLayer"
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/XXXXXXXX" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'send_page_view': true
+        });
+
+        // Цели Google Analytics
+        function trackGoal(goalName) {
+            gtag('event', goalName, {
+                'event_category': 'User Actions',
+                'event_label': goalName
+            });
+        }
+    </script>
+
+    <!-- Кастомные стили для адаптивности -->
+    <style>
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            background-color: #fff;
+            color: #374151;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            box-sizing: border-box;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        .form-radio, .form-checkbox {
+            margin-right: 0.5rem;
+        }
+        .calculator-wrapper {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body>
+    <!-- Плавающая кнопка обратной связи -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="feedbackBtn" class="bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition">
+            <i class="fas fa-comments text-2xl"></i>
+        </button>
+        <div id="feedbackPopup" class="hidden absolute bottom-16 right-0 bg-white p-4 rounded-lg shadow-xl w-64">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3">Связаться с нами</h3>
+            <div class="space-y-3">
+                <a href="tel:+375291234567" class="flex items-center text-gray-700 hover:text-blue-600 transition" onclick="trackGoal('Click_Phone')">
+                    <i class="fas fa-phone-alt mr-2"></i>
+                    <span>+375 29 123-45-67</span>
+                </a>
+                <a href="tel:+375337654321" class="flex items-center text-gray-700 hover:text-blue-600 transition" onclick="trackGoal('Click_Phone')">
+                    <i class="fas fa-phone-alt mr-2"></i>
+                    <span>+375 33 765-43-21</span>
+                </a>
+                <div class="flex space-x-4">
+                    <a href="https://t.me/automir_import" class="text-gray-700 hover:text-blue-600 transition" onclick="trackGoal('Click_Social_Telegram')">
+                        <i class="fab fa-telegram text-xl"></i>
+                    </a>
+                    <a href="https://instagram.com/automir_import" class="text-gray-700 hover:text-blue-600 transition" onclick="trackGoal('Click_Social_Instagram')">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://facebook.com/automir_import" class="text-gray-700 hover:text-blue-600 transition" onclick="trackGoal('Click_Social_Facebook')">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="https://vk.com/automir_import" class="text-gray-700 hover:text-blue-600 transition" onclick="trackGoal('Click_Social_VK')">
+                        <i class="fab fa-vk text-xl"></i>
+                    </a>
+                </div>
+                <a href="#contact" class="block text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition" onclick="trackGoal('Click_Contact_Form')">Оставить заявку</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Верхнее меню -->
+    <header class="fixed w-full bg-white bg-opacity-90 shadow-md z-40">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="mr-2 text-blue-600">
+                    <i class="fas fa-car-side text-3xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-gray-800">АвтоМир <span class="text-blue-600">Импорт</span></h1>
+                    <p class="text-xs text-gray-600">Ваш надежный партнер по импорту авто</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-600 hover:text-blue-600 transition">Главная</a>
+                <a href="#about" class="text-gray-600 hover:text-blue-600 transition">О нас</a>
+                <a href="#services" class="text-gray-600 hover:text-blue-600 transition">Услуги</a>
+                <a href="#process" class="text-gray-600 hover:text-blue-600 transition">Процесс</a>
+                <a href="#catalog" class="text-gray-600 hover:text-blue-600 transition">Каталог</a>
+                <a href="#calculator" class="text-gray-600 hover:text-blue-600 transition">Калькулятор</a>
+                <a href="#reviews" class="text-gray-600 hover:text-blue-600 transition">Отзывы</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition">Контакты</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            <div class="hidden md:block">
+                <a href="tel:+375291234567" class="flex items-center text-gray-700 hover:text-blue-600 transition" onclick="trackGoal('Click_Phone')">
+                    <i class="fas fa-phone-alt mr-2"></i>
+                    <span>+375 29 123-45-67</span>
+                </a>
+            </div>
+        </div>
+        <!-- Мобильное меню -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white w-full py-4 px-6 shadow-md">
+            <nav class="flex flex-col space-y-4">
+                <a href="#home" class="text-gray-600 hover:text-blue-600 transition py-2">Главная</a>
+                <a href="#about" class="text-gray-600 hover:text-blue-600 transition py-2">О нас</a>
+                <a href="#services" class="text-gray-600 hover:text-blue-600 transition py-2">Услуги</a>
+                <a href="#process" class="text-gray-600 hover:text-blue-600 transition py-2">Процесс</a>
+                <a href="#catalog" class="text-gray-600 hover:text-blue-600 transition py-2">Каталог</a>
+                <a href="#calculator" class="text-gray-600 hover:text-blue-600 transition py-2">Калькулятор</a>
+                <a href="#reviews" class="text-gray-600 hover:text-blue-600 transition py-2">Отзывы</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition py-2">Контакты</a>
+                <a href="tel:+375291234567" class="flex items-center text-gray-700 hover:text-blue-600 transition py-2" onclick="trackGoal('Click_Phone')">
+                    <i class="fas fa-phone-alt mr-2"></i>
+                    <span>+375 29 123-45-67</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главный экран -->
+    <section class="hero-section flex items-center" id="home">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">Автомобили из Европы и Кореи в Беларусь</h1>
+                <h2 class="text-xl md:text-2xl text-gray-200 mb-8">Полный комплекс услуг по подбору, покупке, доставке и растаможке</h2>
+                <div class="flex flex-col md:flex-row justify-center gap-4 mb-12">
+                    <a href="#contact" class="btn-primary" onclick="trackGoal('Click_Consultation')">Получить консультацию</a>
+                    <a href="#calculator" class="btn-secondary" onclick="trackGoal('Click_Calculator')">Рассчитать стоимость</a>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                    <div class="flex flex-col items-center text-white">
+                        <div class="text-4xl font-bold text-blue-400">5+</div>
+                        <div class="mt-2 text-sm">лет на рынке</div>
+                    </div>
+                    <div class="flex flex-col items-center text-white">
+                        <div class="text-4xl font-bold text-blue-400">1200+</div>
+                        <div class="mt-2 text-sm">довольных клиентов</div>
+                    </div>
+                    <div class="flex flex-col items-center text-white">
+                        <div class="text-4xl font-bold text-blue-400">14</div>
+                        <div class="mt-2 text-sm">стран-поставщиков</div>
+                    </div>
+                    <div class="flex flex-col items-center text-white">
+                        <div class="text-4xl font-bold text-blue-400">100%</div>
+                        <div class="mt-2 text-sm">гарантия результата</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section class="py-20 bg-gray-50" id="about">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">О компании АвтоМир Импорт</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Мы профессионально занимаемся подбором и доставкой автомобилей из Европы и Кореи в Беларусь с 2018 года</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-gray-700 mb-4">
+                        <strong>АвтоМир Импорт</strong> - это команда профессионалов, специализирующихся на импорте автомобилей из Европы и Южной Кореи в Беларусь. Мы предоставляем полный комплекс услуг от подбора автомобиля по вашим требованиям до доставки и оформления всех необходимых документов.
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        Наши специалисты имеют многолетний опыт работы на международном автомобильном рынке и глубокие знания таможенного законодательства, что позволяет нам осуществлять импорт автомобилей максимально быстро и без юридических проблем.
+                    </p>
+                    <p class="text-gray-700 mb-8">
+                        Мы гарантируем прозрачность на каждом этапе сделки, предоставляя клиентам полную информацию о состоянии автомобиля, его истории и всех расходах, связанных с покупкой и доставкой.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <h3 class="text-xl font-semibold mb-2">Гарантия качества</h3>
+                            <p class="text-gray-600">Тщательная проверка каждого автомобиля</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <i class="fas fa-hand-holding-usd feature-icon"></i>
+                            <h3 class="text-xl font-semibold mb-2">Прозрачные цены</h3>
+                            <p class="text-gray-600">Никаких скрытых платежей</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-xl overflow-hidden shadow-xl">
+                    <img src="images/about-car.jpg" alt="Автомобиль из Европы" class="w-full h-96 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Наши услуги -->
+    <section class="py-20 bg-gray-900 text-white" id="services">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Наши услуги</h2>
+                <p class="text-lg text-gray-300 max-w-3xl mx-auto">Полный комплекс услуг по подбору и достав Anybody can drive a car, but it takes a professional to import one seamlessly.ке автомобилей из-за рубежа</p>
+            </div>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="bg-gray-800 rounded-xl p-6 transition duration-300 card-hover">
+                    <div class="text-blue-400 text-4xl mb-4">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Подбор автомобиля</h3>
+                    <p class="text-gray-400 mb-4">Индивидуальный подбор автомобиля по вашим критериям: марка, модель, год выпуска, бюджет, комплектация.</p>
+                    <ul class="text-gray-400 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Проверка юридической чистоты
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Проверка технического состояния
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Проверка истории обслуживания
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800 rounded-xl p-6 transition duration-300 card-hover">
+                    <div class="text-blue-400 text-4xl mb-4">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Доставка автомобиля</h3>
+                    <p class="text-gray-400 mb-4">Организация безопасной транспортировки автомобиля из страны покупки до Беларуси различными способами.</p>
+                    <ul class="text-gray-400 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Автовоз (закрытый/открытый)
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Контейнерная перевозка
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Страхование при транспортировке
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800 rounded-xl p-6 transition duration-300 card-hover">
+                    <div class="text-blue-400 text-4xl mb-4">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Таможенное оформление</h3>
+                    <p class="text-gray-400 mb-4">Полное сопровождение процесса растаможки автомобиля в соответствии с законодательством Беларуси.</p>
+                    <ul class="text-gray-400 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Расчет таможенных платежей
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Подготовка всех документов
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Сертификация автомобиля
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800 rounded-xl p-6 transition duration-300 card-hover">
+                    <div class="text-blue-400 text-4xl mb-4">
+                        <i class="fas fa-passport"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Импорт в РФ</h3>
+                    <p class="text-gray-400 mb-4">Подготовка всех необходимых документов для импорта автомобиля в Российскую Федерацию.</p>
+                    <ul class="text-gray-400 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Декларация соответствия
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Оформление СБКТС
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Поддержка на таможне
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Каталог автомобилей -->
+    <section class="py-20 bg-gray-50" id="catalog">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Примеры автомобилей</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Ознакомьтесь с примерами автомобилей, которые мы можем доставить для вас</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <img src="images/bmw-x5.jpg" alt="BMW X5" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">BMW X5</h3>
+                        <p class="text-gray-600 mb-2">Год: 2020</p>
+                        <p class="text-gray-600 mb-4">Пробег: 45 000 км, дизель, полный привод, отличное состояние</p>
+                        <p class="text-lg font-bold text-blue-600 mb-4">29 500 €</p>
+                        <a href="#contact" class="btn-primary w-full text-center" onclick="trackGoal('Click_Catalog_Contact')">Заказать</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <img src="images/hyundai-tucson.jpg" alt="Hyundai Tucson" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Hyundai Tucson</h3>
+                        <p class="text-gray-600 mb-2">Год: 2021</p>
+                        <p class="text-gray-600 mb-4">Пробег: 30 000 км, бензин, автомат, из Кореи</p>
+                        <p class="text-lg font-bold text-blue-600 mb-4">24 000 €</p>
+                        <a href="#contact" class="btn-primary w-full text-center" onclick="trackGoal('Click_Catalog_Contact')">Заказать</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <img src="images/mercedes-e-class.jpg" alt="Mercedes E-Class" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Mercedes E-Class</h3>
+                        <p class="text-gray-600 mb-2">Год: 2019</p>
+                        <p class="text-gray-600 mb-4">Пробег: 60 000 км, бензин, из Германии, кожаный салон</p>
+                        <p class="text-lg font-bold text-blue-600 mb-4">32 000 €</p>
+                        <a href="#contact" class="btn-primary w-full text-center" onclick="trackGoal('Click_Catalog_Contact')">Заказать</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#contact" class="btn-secondary" onclick="trackGoal('Click_Catalog_More')">Посмотреть больше автомобилей</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы клиентов -->
+    <section class="py-20 bg-gray-900 text-white" id="reviews">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Отзывы наших клиентов</h2>
+                <p class="text-lg text-gray-300 max-w-3xl mx-auto">Узнайте, что говорят о нас наши довольные клиенты</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 rounded-xl p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">"Заказывал BMW X5 из Германии. Ребята сделали все на высшем уровне: подобрали отличный вариант, доставили быстро, все документы оформили без проблем. Рекомендую!"</p>
+                    <div class="flex items-center">
+                        <div>
+                            <p class="font-semibold text-gray-100">Александр К.</p>
+                            <p class="text-sm text-gray-400">Минск, 15 февраля 2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-xl p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">"Привезли Hyundai Tucson из Кореи. Машина в идеальном состоянии, цена полностью устроила. Немного задержали с доставкой из-за логистики, но в целом все хорошо."</p>
+                    <div class="flex items-center">
+                        <div>
+                            <p class="font-semibold text-gray-100">Екатерина М.</p>
+                            <p class="text-sm text-gray-400">Гомель, 10 марта 2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-xl p-6 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">"Очень доволен работой компании! Заказал Mercedes E-Class, все прошло гладко: от подбора до растаможки. Машина как новая, спасибо за профессионализм!"</p>
+                    <div class="flex items-center">
+                        <div>
+                            <p class="font-semibold text-gray-100">Дмитрий П.</p>
+                            <p class="text-sm text-gray-400">Брест, 5 апреля 2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Калькулятор растаможки -->
+    <section class="py-20 bg-gray-800 text-white" id="calculator">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Калькулятор растаможки и доставки</h2>
+                <p class="text-lg text-gray-300 max-w-3xl mx-auto">Рассчитайте стоимость автомобиля с учетом доставки, таможенных платежей и льгот</p>
+            </div>
+            <div class="max-w-4xl mx-auto w-full">
+                <div class="calculator-wrapper">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="w-full">
+                            <div class="mb-4 w-full">
+                                <label for="carYear" class="block text-gray-700 font-medium mb-2">Возраст авто</label>
+                                <select id="carYear" class="form-input">
+                                    <option value="0-3">До 3-х лет</option>
+                                    <option value="3-5">От 3-х до 5 лет</option>
+                                    <option value="5+">Старше 5 лет</option>
+                                </select>
+                            </div>
+                            <div class="mb-4 w-full">
+                                <label for="carPrice" class="block text-gray-700 font-medium mb-2">Стоимость авто (€)</label>
+                                <input type="number" id="carPrice" min="1000" value="20000" placeholder="Например, 20000" class="form-input">
+                            </div>
+                            <div class="mb-4 w-full">
+                                <label for="engineType" class="block text-gray-700 font-medium mb-2">Тип двигателя</label>
+                                <div class="flex flex-wrap gap-4">
+                                    <label class="flex items-center"><input type="radio" name="engineType" value="internal_combustion" checked class="form-radio"> <span class="ml-2">Бензин/Дизель</span></label>
+                                    <label class="flex items-center"><input type="radio" name="engineType" value="electric" class="form-radio"> <span class="ml-2">Электро</span></label>
+                                </div>
+                            </div>
+                            <div class="mb-4 w-full">
+                                <label for="engineVolume" class="block text-gray-700 font-medium mb-2">Объем двигателя, см³</label>
+                                <input type="number" id="engineVolume" min="0" value="2000" placeholder="Например, 2000" class="form-input">
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="mb-4 w-full">
+                                <label for="carOrigin" class="block text-gray-700 font-medium mb-2">Начало маршрута</label>
+                                <select id="carOrigin" class="form-input">
+                                    <option value="europe">Европа</option>
+                                    <option value="korea">Южная Корея</option>
+                                </select>
+                            </div>
+                            <div class="mb-4 w-full">
+                                <label for="preferentialCustoms" class="block text-gray-700 font-medium mb-2">Льготная растаможка</label>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="preferentialCustoms" class="form-checkbox" checked>
+                                    <span class="text-sm text-gray-600 ml-2 flex-1">(Скидка 50% на таможенные платежи для многодетных семей и инвалидов I/II группы)</span>
+                                </div>
+                            </div>
+                            <div class="mb-4 w-full">
+                                <label for="currency" class="block text-gray-700 font-medium mb-2">Валюта расчета</label>
+                                <select id="currency" class="form-input">
+                                    <option value="EUR">Евро (€)</option>
+                                    <option value="BYN">Белорусские рубли (BYN)</option>
+                                    <option value="RUB">Российские рубли (RUB)</option>
+                                    <option value="USD">Доллары США (USD)</option>
+                                </select>
+                            </div>
+                            <div class="mt-8 w-full">
+                                <button id="calculateBtn" class="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition" onclick="trackGoal('Calculate_Cost')">Рассчитать</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="resultBox" class="mt-6 hidden">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Результат расчета</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
+                            <div><p class="font-medium">Стоимость авто:</p><p id="carPriceResult" class="text-lg">20 000 €</p></div>
+                            <div><p class="font-medium">Доставка:</p><p id="deliveryPriceResult" class="text-lg">1 500 €</p></div>
+                            <div><p class="font-medium">Таможенные платежи:</p><p id="customsResult" class="text-lg">2 150 €</p></div>
+                            <div><p class="font-medium">Услуги компании:</p><p id="servicesResult" class="text-lg">1 000 €</p></div>
+                            <div><p class="font-medium">Итого:</p><p id="totalResult" class="text-xl font-bold text-blue-600">24 650 €</p></div>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-4">* Расчет является предварительным. Для точной стоимости свяжитесь с нами.</p>
+                        <p class="text-sm text-gray-500 mt-2" id="exchangeRateInfo"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контактная форма -->
+    <section class="py-20 contact-section text-white" id="contact">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Связаться с нами</h2>
+                <p class="text-lg text-gray-300 max-w-3xl mx-auto">Оставьте заявку, и наши специалисты свяжутся с вами в ближайшее время</p>
+            </div>
+            <div class="grid md:grid-cols-5 gap-8 max-w-6xl mx-auto">
+                <div class="md:col-span-2">
+                    <div class="bg-white bg-opacity-10 p-6 rounded-xl backdrop-filter backdrop-blur-md">
+                        <h3 class="text-2xl font-semibold mb-6">Контактная информация</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="mr-4 text-blue-400 text-xl"><i class="fas fa-map-marker-alt"></i></div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Адрес офиса:</h4>
+                                    <p class="text-gray-300">г. Минск, ул. Немига, 5, офис 308</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="mr-4 text-blue-400 text-xl"><i class="fas fa-phone-alt"></i></div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Телефон:</h4>
+                                    <p class="text-gray-300">+375 29 123-45-67</p>
+                                    <p class="text-gray-300">+375 33 765-43-21</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="mr-4 text-blue-400 text-xl"><i class="fas fa-envelope"></i></div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Email:</h4>
+                                    <p class="text-gray-300"><a href="/cdn-cgi/l/email-protection#81e8efe7eec1e0f4f5eeece8f3ace8ecf1eef3f5afe3f8"><span class="__cf_email__" data-cfemail="c1a8afa7aec1a0b4b5aeaca8b3eca8acb1aeb3b5efa3b8">[email protected]</span></a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-3">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <div id="contactForm">
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block text-gray-700 font-medium mb-2">Ваше имя *</label>
+                                    <input type="text" id="name" name="name" placeholder="Например, Иван" class="form-input" required>
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-gray-700 font-medium mb-2">Телефон *</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="Например, +375 29 123-45-67" class="form-input" required>
+                                </div>
+                            </div>
+                            <div class="mb-6">
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                <input type="email" id="email" name="email" placeholder="Например, ivan@email.com" class="form-input">
+                            </div>
+                            <div class="mb-6">
+                                <label for="carDetails" class="block text-gray-700 font-medium mb-2">Интересующий автомобиль</label>
+                                <input type="text" id="carDetails" name="carDetails" placeholder="Например, BMW X5, 2020, до 30000 €" class="form-input">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 font-medium mb-2">Сообщение</label>
+                                <textarea id="message" name="message" rows="4" placeholder="Например, нужен автомобиль с пробегом до 50 000 км, в хорошем состоянии" class="form-input resize-none"></textarea>
+                            </div>
+                            <div class="mb-6 flex items-start">
+                                <input type="checkbox" id="agreement" name="agreement" class="mt-1" required>
+                                <label for="agreement" class="ml-2 text-sm text-gray-600">
+                                    Я согласен на обработку персональных данных *
+                                </label>
+                            </div>
+                            <button type="button" id="submitFormBtn" class="btn-primary w-full" onclick="submitForm(); trackGoal('Submit_Contact_Form')">Отправить заявку</button>
+                            <p class="text-sm text-gray-500 mt-4 text-center">* Поля, обязательные для заполнения</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="bg-gray-900 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="mr-2 text-blue-400">
+                            <i class="fas fa-car-side text-3xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">АвтоМир <span class="text-blue-400">Импорт</span></h3>
+                            <p class="text-xs text-gray-400">Ваш надежный партнер по импорту авто</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400">© 2025 АвтоМир Импорт. Все права защищены.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Услуги</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#services" class="hover:text-blue-400 transition">Подбор автомобиля</a></li>
+                        <li><a href="#services" class="hover:text-blue-400 transition">Доставка автомобиля</a></li>
+                        <li><a href="#services" class="hover:text-blue-400 transition">Таможенное оформление</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Информация</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#about" class="hover:text-blue-400 transition">О компании</a></li>
+                        <li><a href="#process" class="hover:text-blue-400 transition">Процесс работы</a></li>
+                        <li><a href="#reviews" class="hover:text-blue-400 transition">Отзывы клиентов</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Контакты</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2 text-blue-400"></i>
+                            <span>г. Минск, ул. Немига, 5, офис 308</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2 text-blue-400"></i>
+                            <span>+375 29 123-45-67</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2 text-blue-400"></i>
+                            <span><a href="/cdn-cgi/l/email-protection#5e373038351e3f2b2a353739226f3b3f223d2026703c27"><span class="__cf_email__" data-cfemail="3a53545c553a5b4f4e5557544f1451544f55484e145846">[email protected]</span></a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
+        // Мобильное меню
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const feedbackBtn = document.getElementById('feedbackBtn');
+            const feedbackPopup = document.getElementById('feedbackPopup');
+
+            // Открытие/закрытие мобильного меню
+            menuToggle.addEventListener('click', function(event) {
+                mobileMenu.classList.toggle('hidden');
+                event.stopPropagation();
+            });
+
+            // Закрытие мобильного меню при клике на ссылку внутри меню
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Закрытие мобильного меню при клике вне меню
+            document.addEventListener('click', function(event) {
+                if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Открытие/закрытие попапа обратной связи
+            feedbackBtn.addEventListener('click', function(event) {
+                feedbackPopup.classList.toggle('hidden');
+                event.stopPropagation();
+            });
+
+            // Закрытие попапа обратной связи при клике на ссылку внутри попапа
+            feedbackPopup.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    feedbackPopup.classList.add('hidden');
+                });
+            });
+
+            // Закрытие попапа обратной связи при клике вне попапа
+            document.addEventListener('click', function(event) {
+                if (!feedbackPopup.contains(event.target) && !feedbackBtn.contains(event.target)) {
+                    feedbackPopup.classList.add('hidden');
+                }
+            });
+
+            // Плавная прокрутка
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Курсы валют (примерные на апрель 2025, можно обновлять через API НБРБ)
+            let exchangeRates = {
+                EUR: 1,
+                BYN: 3.5949,
+                USD: 1.136,
+                RUB: 100.50
+            };
+
+            // Функция для получения курсов валют
+            async function fetchExchangeRates() {
+                try {
+                    // Здесь можно добавить вызов API НБРБ, например, https://api.nbrb.by/exrates/rates?periodicity=0
+                    const exchangeRateInfo = document.getElementById('exchangeRateInfo');
+                    exchangeRateInfo.textContent = `Курсы НБРБ на 16.04.2025: 1 EUR = ${exchangeRates.BYN.toFixed(4)} BYN, 1 EUR = ${(exchangeRates.USD).toFixed(4)} USD, 1 EUR = ${(exchangeRates.RUB).toFixed(4)} RUB`;
+                } catch (error) {
+                    console.error('Ошибка получения курсов валют:', error);
+                    document.getElementById('exchangeRateInfo').textContent = 'Не удалось загрузить актуальные курсы валют. Используются значения по умолчанию.';
+                }
+            }
+
+            // Вызов функции загрузки курсов при загрузке страницы
+            fetchExchangeRates();
+
+            // Калькулятор растаможки
+            const calculateBtn = document.getElementById('calculateBtn');
+            const resultBox = document.getElementById('resultBox');
+            const engineTypeInputs = document.getElementsByName('engineType');
+            const engineVolumeInput = document.getElementById('engineVolume');
+
+            // Управление полем объема двигателя
+            engineTypeInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    const isElectric = this.value === 'electric';
+                    engineVolumeInput.disabled = isElectric;
+                    if (isElectric) {
+                        engineVolumeInput.value = 0;
+                    } else if (engineVolumeInput.value === '0') {
+                        engineVolumeInput.value = 2000;
+                    }
+                });
+            });
+
+            calculateBtn.addEventListener('click', function() {
+                const carPrice = parseFloat(document.getElementById('carPrice').value) || 0;
+                const carYear = document.getElementById('carYear').value;
+                const engineType = document.querySelector('input[name="engineType"]:checked').value;
+                const engineVolume = engineType === 'electric' ? 0 : parseFloat(document.getElementById('engineVolume').value) || 0;
+                const carOrigin = document.getElementById('carOrigin').value;
+                const preferentialCustoms = document.getElementById('preferentialCustoms').checked;
+                const currency = document.getElementById('currency').value;
+
+                // Валидация
+                if (carPrice <= 0) {
+                    alert('Пожалуйста, укажите корректную стоимость автомобиля (больше 0).');
+                    return;
+                }
+                if (engineType === 'internal_combustion' && engineVolume <= 0) {
+                    alert('Пожалуйста, укажите корректный объем двигателя (больше 0).');
+                    return;
+                }
+
+                // Расчет доставки
+                let deliveryPrice = carOrigin === 'europe' ? 1500 : 2500;
+
+                // Расчет таможенных платежей
+                let customsPrice = 0;
+                const disposalFeeByn = carYear === '0-3' ? 544.5 : 1089; // Утилизационный сбор в BYN
+                const disposalFeeEur = disposalFeeByn / exchangeRates.BYN; // Конвертация в EUR
+                const customsClearanceByn = 120; // Таможенное оформление в BYN
+                const customsClearanceEur = customsClearanceByn / exchangeRates.BYN; // Конвертация в EUR
+                const storageFeeByn = 200; // Склад в BYN
+                const storageFeeEur = storageFeeByn / exchangeRates.BYN; // Конвертация в EUR
+                const eptsFeeByn = 70; // ЭПТС в BYN
+                const eptsFeeEur = eptsFeeByn / exchangeRates.BYN; // Конвертация в EUR
+
+                let baseDuty = 0;
+
+                if (engineType === 'electric') {
+                    // Для электромобилей: таможенная пошлина 0%, только утилизационный сбор и дополнительные сборы
+                    customsPrice = disposalFeeEur + customsClearanceEur + storageFeeEur + eptsFeeEur;
+                } else {
+                    // Расчет таможенной пошлины
+                    if (carYear === '0-3') {
+                        let percentageRate, volumeRate;
+                        if (carPrice <= 8500) {
+                            percentageRate = carPrice * 0.54;
+                            volumeRate = engineVolume * 2.5;
+                        } else if (carPrice <= 16700) {
+                            percentageRate = carPrice * 0.48;
+                            volumeRate = engineVolume * 3.5;
+                        } else if (carPrice <= 42300) {
+                            percentageRate = carPrice * 0.48;
+                            volumeRate = engineVolume * 5.5;
+                        } else if (carPrice <= 84500) {
+                            percentageRate = carPrice * 0.48;
+                            volumeRate = engineVolume * 7.5;
+                        } else if (carPrice <= 169000) {
+                            percentageRate = carPrice * 0.48;
+                            volumeRate = engineVolume * 15;
+                        } else {
+                            percentageRate = carPrice * 0.48;
+                            volumeRate = engineVolume * 20;
+                        }
+                        baseDuty = Math.max(percentageRate, volumeRate);
+                    } else if (carYear === '3-5') {
+                        if (engineVolume <= 1000) {
+                            baseDuty = engineVolume * 1.5;
+                        } else if (engineVolume <= 1500) {
+                            baseDuty = engineVolume * 1.7;
+                        } else if (engineVolume <= 1800) {
+                            baseDuty = engineVolume * 2.5;
+                        } else if (engineVolume <= 2300) {
+                            baseDuty = engineVolume * 2.7;
+                        } else if (engineVolume <= 3000) {
+                            baseDuty = engineVolume * 3.0;
+                        } else {
+                            baseDuty = engineVolume * 3.6;
+                        }
+                    } else {
+                        if (engineVolume <= 1000) {
+                            baseDuty = engineVolume * 3.0;
+                        } else if (engineVolume <= 1500) {
+                            baseDuty = engineVolume * 3.2;
+                        } else if (engineVolume <= 1800) {
+                            baseDuty = engineVolume * 3.5;
+                        } else if (engineVolume <= 2300) {
+                            baseDuty = engineVolume * 4.8;
+                        } else if (engineVolume <= 3000) {
+                            baseDuty = engineVolume * 5.0;
+                        } else {
+                            baseDuty = engineVolume * 5.7;
+                        }
+                    }
+
+                    // Суммируем все таможенные платежи (без НДС)
+                    customsPrice = baseDuty + disposalFeeEur + customsClearanceEur + storageFeeEur + eptsFeeEur;
+                }
+
+                // Льготная растаможка
+                if (preferentialCustoms) {
+                    // Скидка 50% только на таможенную пошлину
+                    customsPrice = (baseDuty * 0.5) + disposalFeeEur + customsClearanceEur + storageFeeEur + eptsFeeEur;
+                }
+
+                // Услуги компании (фиксировано 1000 евро)
+                const servicesPrice = 1000;
+
+                // Итог в EUR
+                const totalPriceEur = carPrice + deliveryPrice + customsPrice + servicesPrice;
+
+                // Конвертация в выбранную валюту
+                let carPriceDisplay = carPrice;
+                let deliveryPriceDisplay = deliveryPrice;
+                let customsPriceDisplay = customsPrice;
+                let servicesPriceDisplay = servicesPrice;
+                let totalPriceDisplay = totalPriceEur;
+                let currencySymbol = '€';
+
+                if (currency !== 'EUR') {
+                    const rate = exchangeRates[currency];
+                    carPriceDisplay = carPrice * rate;
+                    deliveryPriceDisplay = deliveryPrice * rate;
+                    customsPriceDisplay = customsPrice * rate;
+                    servicesPriceDisplay = servicesPrice * rate;
+                    totalPriceDisplay = totalPriceEur * rate;
+                    currencySymbol = currency === 'BYN' ? 'BYN' : currency === 'USD' ? '$' : '₽';
+                }
+
+                // Вывод результатов
+                document.getElementById('carPriceResult').textContent = formatPrice(carPriceDisplay, currencySymbol);
+                document.getElementById('deliveryPriceResult').textContent = formatPrice(deliveryPriceDisplay, currencySymbol);
+                document.getElementById('customsResult').textContent = formatPrice(customsPriceDisplay, currencySymbol);
+                document.getElementById('servicesResult').textContent = formatPrice(servicesPriceDisplay, currencySymbol);
+                document.getElementById('totalResult').textContent = formatPrice(totalPriceDisplay, currencySymbol);
+
+                resultBox.classList.remove('hidden');
+                resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            function formatPrice(price, symbol) {
+                return Math.round(price).toLocaleString() + ' ' + symbol;
+            }
+
+            // Отправка формы в Telegram
+            async function submitForm() {
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const email = document.getElementById('email').value;
+                const carDetails = document.getElementById('carDetails').value;
+                const message = document.getElementById('message').value;
+
+                if (!name || !phone) {
+                    alert('Пожалуйста, заполните обязательные поля.');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('phone', phone);
+                formData.append('email', email);
+                formData.append('carDetails', carDetails);
+                formData.append('message', message);
+
+                try {
+                    const response = await fetch('send_telegram.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+                        document.getElementById('contactForm').reset();
+                    } else {
+                        alert('Произошла ошибка при отправке заявки. Попробуйте снова.');
+                    }
+                } catch (error) {
+                    alert('Произошла ошибка: ' + error.message);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
